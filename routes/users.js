@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var { userService } = require('../services');
+const { userService } = require('../services');
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {

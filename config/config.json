@@ -5,7 +5,11 @@
     "database": "cheflix_development",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": "0"
+    "operatorsAliases": "0",
+    "jwt": {
+      "JWT_SECRET": "8dce21195d46b9763dcdf3164d62a496"
+    },
+    "allowedOrigin": "http://localhost:3001"
   },
   "test": {
     "username": "root",
@@ -13,7 +17,11 @@
     "database": "cheflix_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": "0"
+    "operatorsAliases": "0",
+    "jwt": {
+      "JWT_SECRET": "8dce21195d46b9763dcdf3164d62a496"
+    },
+    "allowedOrigin": "http://localhost:3001"
   },
   "production": {
     "username": "root",
@@ -21,6 +29,10 @@
     "database": "cheflix_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": "0"
+    "operatorsAliases": "0",
+    "jwt": {
+      "JWT_SECRET": "8dce21195d46b9763dcdf3164d62a496"
+    },
+    "allowedOrigin": "http://localhost:3001"
   }
 }
