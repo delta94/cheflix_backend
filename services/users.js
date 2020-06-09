@@ -12,6 +12,9 @@ const findOne = (query) => {
         where: {
             ...query,
             deletedAt: null
+        },
+        include: {
+            model: db.Class
         }
     });
 }
