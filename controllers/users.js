@@ -1,12 +1,47 @@
 const { userService } = require('../services');
-const { isEmail } = require('../utils').validate;
+const {
+    validate,
+    definedError, jwt
+} = require('../utils');
+const { isEmail } = validate;
 
 const getUser = async (req, res, next) => {
     try {
         res.json({
-            status: 'successful',
+            status: 'success',
             data: 'user'
         })
+    } catch (e) {
+        next(e);
+    }
+}
+
+const createToken = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        // See if email is correct
+        let user = await userService.findOne({ email });
+        if (!user) {
+            throw new definedError.IncorrectEmail('Email is incorrect');
+        }
+        // See if password is correct
+        let isCorrectPassword = await userService.comparePassword({ id: user.id, password })
+        if (!isCorrectPassword) {
+            throw new definedError.IncorrectPassword('Password is not correct');
+        }
+        // Generate token
+        let token = jwt.signToken({
+            id: user.id,
+            email: user.email
+        });
+        // Respond with token
+        return res.status(200).json({
+            status: 'success',
+            data: {
+                token,
+                id: user.id
+            }
+        });
     } catch (e) {
         next(e);
     }
@@ -48,6 +83,7 @@ const createUser = async (req, res, next) => {
 }
 
 module.exports = {
+    createToken,
     getUser,
     createUser
 }
