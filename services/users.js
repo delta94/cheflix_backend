@@ -1,19 +1,30 @@
 const db = require('../models');
 
+const {
+    bcrypt
+} = require('../utils');
+
 const findOne = (query) => {
     return db.User.findOne({
         attributes: {
             exclude: ['password']
         },
         where: {
-            ...query
+            ...query,
+            deletedAt: null
         }
     });
 }
 
-const create = (data) => {
+const create =  async (data) => {
+    // generate hash for password
+    let password = await bcrypt.genHash(data.password);
+    // delete plain password
+    delete data.password;
+
     return db.User.create({
-        ...data
+        ...data,
+        password
     });
 }
 

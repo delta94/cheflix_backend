@@ -30,7 +30,7 @@ function authorize(cb) {
           throw new definedError.InvalidToken('Token is invalid');
         }
         // Put user info in request
-        user = user.get();s
+        user = user.get();
         re.user = user;
         req.token = token;
         next();

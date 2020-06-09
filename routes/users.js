@@ -1,11 +1,16 @@
 const express = require('express');
-const router = express.Router();
+const userRouter = express.Router();
 
+// database service
 const { userService } = require('../services');
 
-/* GET users listing. */
-router.get('/', async function(req, res, next) {
-  return res.json({ message: 'user route' });
-});
+// controllers
+const { userController } = require('../controllers');
 
-module.exports = router;
+// get user
+userRouter.get('/:id', userController.getUser);
+
+// create user
+userRouter.post('/', userController.createUser);
+
+module.exports = userRouter;
