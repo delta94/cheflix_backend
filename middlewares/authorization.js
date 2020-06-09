@@ -31,7 +31,7 @@ function authorize(cb) {
         }
         // Put user info in request
         user = user.get();
-        re.user = user;
+        req.user = user;
         req.token = token;
         next();
       }

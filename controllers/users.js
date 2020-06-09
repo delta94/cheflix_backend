@@ -7,9 +7,12 @@ const { isEmail } = validate;
 
 const getUser = async (req, res, next) => {
     try {
-        res.json({
+        let { id } = req.params;
+        let user = await userService.findOne({ id });
+        
+        return res.json({
             status: 'success',
-            data: 'user'
+            data: user
         })
     } catch (e) {
         next(e);
@@ -63,7 +66,6 @@ const createUser = async (req, res, next) => {
         if (user) {
             throw new definedError.UsedEmail('Email is used');
         }
-
         // Create new user
         let newUser = await userService.create({ email, password, firstName, lastName, address, dateOfBirth });
         // Respond with newly created user
