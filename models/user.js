@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     dateOfBirth: {
       type: DataTypes.DATE
+    },
+    phoneNumber: {
+      type: DataTypes.INTEGER
     }
   }, {
     timestamps: true,

@@ -3,16 +3,22 @@ const {
     validate,
     definedError, jwt
 } = require('../utils');
+const users = require('../services/users');
 const { isEmail } = validate;
 
 const getUser = async (req, res, next) => {
     try {
         let { id } = req.params;
         let user = await userService.findOne({ id });
-        
+        // if no user
+        if (!user) {
+            throw new definedError.NotFound('User not found');
+        }
         return res.json({
             status: 'success',
-            data: user
+            data: {
+                user
+            }
         })
     } catch (e) {
         next(e);
