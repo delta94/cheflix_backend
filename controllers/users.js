@@ -84,8 +84,33 @@ const createUser = async (req, res, next) => {
     }
 }
 
+const updateUser = async (req, res, next) => {
+    try {
+        let { id } = req.params;
+        let { firstName, lastName, address, dateOfBirth } = req.body;
+
+        let user = await userService.findOne({ id });
+        // if no user then throw error
+        if(!user) throw new definedError.NotFound('User not found');
+        // set changes
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.address = address;
+        user.dateOfBirth = dateOfBirth;
+        // save changes
+        await user.save();
+        return res.json({
+            status: 'success',
+            message: 'User updated'
+        });
+    } catch (e) {
+        next(e);
+    }
+}
+
 module.exports = {
     createToken,
     getUser,
-    createUser
+    createUser,
+    updateUser
 }

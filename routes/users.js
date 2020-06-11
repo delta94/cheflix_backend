@@ -10,10 +10,11 @@ const { checkAuthorization } = require('../middlewares');
 
 // get user
 userRouter.get('/:id', checkAuthorization, userController.getUser);
-
 // create user
 userRouter.post('/', userController.createUser);
-
+// update user
+userRouter.put('/:id', userController.updateUser);
+// get jwt token
 userRouter.post('/tokens', userController.createToken);
 
 module.exports = userRouter;

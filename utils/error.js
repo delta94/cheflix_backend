@@ -15,14 +15,14 @@ class UsedEmail extends Error {
 class IncorrectEmail extends Error {
     constructor(msg) {
         super(msg);
-        this.name = 'WrongEmail';
+        this.name = 'IncorrectEmail';
     }
 }
 
 class IncorrectPassword extends Error {
     constructor(msg) {
         super(msg);
-        this.name = 'WrongPassword';
+        this.name = 'IncorrectPassword';
     }
 }
 
