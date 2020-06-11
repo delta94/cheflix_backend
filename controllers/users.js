@@ -93,7 +93,7 @@ const createUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
     try {
         let { id } = req.params;
-        let { firstName, lastName, address, dateOfBirth } = req.body;
+        let { firstName, lastName, address, dateOfBirth, phoneNumber } = req.body;
 
         let user = await userService.findOne({ id });
         // if no user then throw error
@@ -103,6 +103,8 @@ const updateUser = async (req, res, next) => {
         user.lastName = lastName;
         user.address = address;
         user.dateOfBirth = dateOfBirth;
+        user.phoneNumber = phoneNumber;
+
         // save changes
         await user.save();
         return res.json({
