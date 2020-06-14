@@ -58,9 +58,9 @@ const createToken = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
     try {
-        const { email, password, firstName, lastName, address, dateOfBirth } = req.body;
+        const { username, email, password, firstName, lastName, sex, address, dateOfBirth } = req.body;
         // Check missing fields
-        if (!email || !password) {
+        if (!username || !email || !password) {
             throw new definedError.MissingParameter('Missing fields in registration form');
         }
         // Check correct email format
@@ -72,8 +72,14 @@ const createUser = async (req, res, next) => {
         if (user) {
             throw new definedError.UsedEmail('Email is used');
         }
+
+        // See if this username is already used
+        let user = await userService.findOne({ username });
+        if (user) {
+            throw new definedError.UsedUsername('Username is used');
+        }
         // Create new user
-        let newUser = await userService.create({ email, password, firstName, lastName, address, dateOfBirth });
+        let newUser = await userService.create({ username, email, password, firstName, lastName, sex, address, dateOfBirth });
         // Respond with newly created user
         return res.json({
             status: 'success',

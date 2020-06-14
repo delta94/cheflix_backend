@@ -12,6 +12,13 @@ class UsedEmail extends Error {
     }
 }
 
+class UsedUsername extends Error {
+    constructor(msg) {
+        super(msg);
+        this.name = 'UsedUsername';
+    }
+}
+
 class IncorrectEmail extends Error {
     constructor(msg) {
         super(msg);
