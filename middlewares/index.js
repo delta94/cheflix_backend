@@ -4,8 +4,13 @@ const {
     checkAdminAuthorization
 } = require('./authorization');
 
+const {
+    upload
+} = require('multer');
+
 module.exports = {
     exceptionHandler,
     checkAuthorization,
-    checkAdminAuthorization
+    checkAdminAuthorization,
+    upload
 }
