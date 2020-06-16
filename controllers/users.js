@@ -29,7 +29,13 @@ const createToken = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         // See if email is correct
-        let user = await userService.findOne({ email });
+        let user;
+
+        if (isEmail(email)){
+            user = await userService.findOne({ email })
+        }else{
+            user = await userService.findOne({ username:email });
+        }
         if (!user) {
             throw new definedError.IncorrectEmail('Email is incorrect');
         }
@@ -58,7 +64,10 @@ const createToken = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
     try {
-        const { username, email, password, firstName, lastName, sex, address, dateOfBirth } = req.body;
+
+        const {username, email, password, firstName, lastName, address, dateOfBirth } = req.body;
+        console.log(username);
+
         // Check missing fields
         if (!username || !email || !password) {
             throw new definedError.MissingParameter('Missing fields in registration form');
@@ -79,7 +88,9 @@ const createUser = async (req, res, next) => {
             throw new definedError.UsedUsername('Username is used');
         }
         // Create new user
-        let newUser = await userService.create({ username, email, password, firstName, lastName, sex, address, dateOfBirth });
+
+        let newUser = await userService.create({username, email, password, firstName, lastName, address, dateOfBirth });
+
         // Respond with newly created user
         return res.json({
             status: 'success',
@@ -101,6 +112,7 @@ const updateUser = async (req, res, next) => {
         let { id } = req.params;
         let { firstName, lastName, address, dateOfBirth, phoneNumber, gender, picture } = req.body;
 
+        // let { firstName, lastName, address, dateOfBirth, phoneNumber,sex} = req.body;
         let user = await userService.findOne({ id });
         // if no user then throw error
         if(!user) throw new definedError.NotFound('User not found');
