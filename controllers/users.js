@@ -125,7 +125,6 @@ const updateUser = async (req, res, next) => {
         user.dateOfBirth = dateOfBirth;
         user.phoneNumber = phoneNumber;
         user.gender = gender;
-        // user.sex = sex;
 
         // save changes
         await user.save();
