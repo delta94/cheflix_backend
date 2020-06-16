@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
+    username: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false
@@ -26,6 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     gender: {
       type: DataTypes.BOOLEAN
+    // sex: {
+    //   type: DataTypes.INTEGER
     }
   }, {
     timestamps: true,
