@@ -1,4 +1,5 @@
 const db = require('../models');
+const { query } = require('express');
 
 const findAll = (query) => {
     return db.Class.findAll({
