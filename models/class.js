@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     teacherId: {
       type: DataTypes.INTEGER
+    },
+    lessons: {
+      type: DataTypes.INTEGER
     }
   }, {
     timestamps: true,
