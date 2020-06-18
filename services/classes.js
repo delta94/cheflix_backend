@@ -6,13 +6,22 @@ const findAll = (query) => {
         where: {
             ...query
         },
-        include: {
-            model: db.User,
-            as: 'students',
-            attributes: {
-                exclude: ['password']
-            }
-        }
+        include: [
+            {
+                model: db.User,
+                as: 'students',
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+            {
+                model: db.User,
+                as: 'teacher',
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+        ]
     });
 };
 
@@ -37,13 +46,22 @@ const findEnrolled = async ({ id }) => {
         include: {
             model: db.Class,
             as: 'enrolledClasses',
-            include: {
-                model: db.User,
-                as: 'students',
-                attributes: {
-                    exclude: ['password']
-                }
-            }
+            include: [
+                {
+                    model: db.User,
+                    as: 'students',
+                    attributes: {
+                        exclude: ['password']
+                    }
+                },
+                {
+                    model: db.User,
+                    as: 'teacher',
+                    attributes: {
+                        exclude: ['password']
+                    }
+                },
+            ]
         }
     });
     return student.enrolledClasses;
