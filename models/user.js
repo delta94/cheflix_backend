@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     phoneNumber: {
       type: DataTypes.INTEGER
+    },
+    gender: {
+      type: DataTypes.BOOLEAN
     }
   }, {
     timestamps: true,
