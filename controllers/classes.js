@@ -52,7 +52,24 @@ const createClass = async (req, res, next) => {
     }
 }
 
+const enrollClass = async (req, res, next) => {
+    try {
+        var { id: studentId } = req.user;
+        var { classId } = req.body;
+
+        await classService.enroll({ studentId, classId });
+        
+        return res.json({
+            status: 'success',
+            message: 'enroll class successful',
+        });
+    } catch (e) {
+        next(e);
+    }
+}
+
 module.exports = {
     getClasses,
-    createClass
+    createClass,
+    enrollClass
 }

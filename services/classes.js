@@ -19,7 +19,15 @@ const create = (data) => {
     });
 }
 
+const enroll = ({ studentId, classId }) => {
+    return db.StudentInClass.create({
+        studentId,
+        classId
+    });
+}
+
 module.exports = {
     findAll,
-    create
+    create,
+    enroll
 }
