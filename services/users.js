@@ -31,7 +31,19 @@ const create =  async (data) => {
     });
 }
 
+const comparePassword = async ({ id, password }) => {
+    let user = await db.User.findOne({
+        attributes: ['password'],
+        where: {
+            id
+        }
+    });
+
+    return bcrypt.compareHash(password, user.password);
+}
+
 module.exports = {
     findOne,
     create,
+    comparePassword
 }
