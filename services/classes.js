@@ -58,10 +58,31 @@ const findAll = (query) => {
     });
 };
 
-const create = (data) => {
-    return db.Class.create({
-        ...data
+const createLesson = (data, parrentClassId) => {
+    console.log('lesson', data, parrentClassId)
+    
+    return db.Lesson.create({
+        name: data.name,
+        description: data.desc,
+        vid: data.vid,
+        parrentClassId:parrentClassId,
     });
+}
+
+const create = (data) => {
+    console.log('data', data)
+
+
+    var newClass = db.Class.create({
+        ...data
+    }).then(function(classes){
+        console.log('created data id',classes.dataValues.id)
+        data.lessons.forEach((les)=>{
+            createLesson(les, classes.dataValues.id)
+        })
+    });
+
+    return newClass
 }
 
 const enroll = ({ studentId, classId }) => {

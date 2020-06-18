@@ -1,7 +1,7 @@
 const { classService } = require('../services');
 const { definedError } = require('../utils');
 const { MissingParameter } = require('../utils/error');
-const classes = require('../services/class');
+const classes = require('../services/classes');
 
 const getClasses = async (req, res, next) => {
     try {
@@ -36,16 +36,42 @@ const getClasses = async (req, res, next) => {
     }
 }
 
+
+const getSingleClass = async (req, res, next) => {
+    try {
+        let { id } = req.params;
+        // console.log("here", req)
+        let classes = await classService.findOne({ id });
+        // if no classes
+        if (!classes) {
+            throw new definedError.NotFound('Class not found');
+        }
+        return res.json({
+            status: 'success',
+            data: {
+                classes
+            }
+        })
+    } catch (e) {
+        next(e);
+    }
+}
+
 const createClass = async (req, res, next) => {
     try {
-        var { name, description, teacherId } = req.body;
-        console.log({className, desc, lessons})
 
-        if (!name || !description || !teacherId) {
+        var { className, desc,lessons, id } = req.body;
+        console.log(req.body)
+        var teacherId = id
+        var name = className
+        var description = desc
+        console.log(name, description, teacherId)
+
+        if (!name || !description || !teacherId|| !lessons) {
             throw new definedError.MissingParameter('Some parameter is missing');
         }
 
-        let newClass = await classService.create({ name, description, teacherId });
+        let newClass = await classService.create({ name, description, lessons, teacherId });
 
         return res.json({
             status: 'success',
@@ -105,7 +131,6 @@ const updateClass = async (req, res, next) => {
 
         let classes = await classService.findOne({ id });
         // if no user then throw error
-        if(!classes) throw new definedError.NotFound('User not found');
         // set changes
 
         // save changes
@@ -124,4 +149,6 @@ module.exports = {
     createClass,
     enrollClass,
     updateClass
+    updateClass,
+    getSingleClass
 }
