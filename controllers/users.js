@@ -83,8 +83,8 @@ const createUser = async (req, res, next) => {
         }
 
         // See if this username is already used
-        let user = await userService.findOne({ username });
-        if (user) {
+        let user2 = await userService.findOne({ username });
+        if (user2) {
             throw new definedError.UsedUsername('Username is used');
         }
         // Create new user
