@@ -1,8 +1,7 @@
 'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('lessons', {
+    return queryInterface.createTable('Lessons', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,7 +14,7 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      : {
+      vid: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -25,16 +24,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      deletedAt: {
-        type: Sequelize.DATE
       }
     });
   },
-
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Classes');
+    return queryInterface.dropTable('Lessons');
   }
-
-
 };
