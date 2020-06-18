@@ -8,7 +8,10 @@ const findAll = (query) => {
         },
         include: {
             model: db.User,
-            as: 'students'
+            as: 'students',
+            attributes: {
+                exclude: ['password']
+            }
         }
     });
 };
@@ -36,7 +39,10 @@ const findEnrolled = async ({ id }) => {
             as: 'enrolledClasses',
             include: {
                 model: db.User,
-                as: 'students'
+                as: 'students',
+                attributes: {
+                    exclude: ['password']
+                }
             }
         }
     });
