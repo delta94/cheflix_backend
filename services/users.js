@@ -14,7 +14,12 @@ const findOne = (query) => {
             deletedAt: null
         },
         include: {
-            model: db.Class
+            model: db.Class,
+            as: 'enrolledClasses',
+            include: {
+                model: db.User,
+                as: 'students'
+            }
         }
     });
 }
