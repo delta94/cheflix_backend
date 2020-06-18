@@ -4,6 +4,10 @@ const findAll = (query) => {
     return db.Class.findAll({
         where: {
             ...query
+        },
+        include: {
+            model: db.User,
+            as: 'students'
         }
     });
 };

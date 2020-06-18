@@ -40,7 +40,8 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(models.Class, {
       through: models.StudentInClass,
       as: 'enrolledClasses',
-      foreignKey: 'studentId'
+      foreignKey: 'studentId',
+      otherKey: 'classId'
     });
   };
   return User;
