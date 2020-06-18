@@ -26,8 +26,26 @@ const enroll = ({ studentId, classId }) => {
     });
 }
 
+const findEnrolled = async ({ id }) => {
+    let student = await db.User.findOne({
+        where: {
+            id
+        },
+        include: {
+            model: db.Class,
+            as: 'enrolledClasses',
+            include: {
+                model: db.User,
+                as: 'students'
+            }
+        }
+    });
+    return student.enrolledClasses;
+}
+
 module.exports = {
     findAll,
     create,
-    enroll
+    enroll,
+    findEnrolled
 }

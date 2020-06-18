@@ -15,7 +15,11 @@ const findOne = (query) => {
         },
         include: {
             model: db.Class,
-            as: 'enrolledClasses'
+            as: 'enrolledClasses',
+            include: {
+                model: db.User,
+                as: 'students'
+            }
         }
     });
 }

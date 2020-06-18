@@ -1,4 +1,4 @@
-const { classService, userService } = require('../services');
+const { classService } = require('../services');
 const { definedError } = require('../utils');
 const { MissingParameter } = require('../utils/error');
 
@@ -12,7 +12,7 @@ const getClasses = async (req, res, next) => {
                 break;
             }
             case 'enrolled': {
-                classes = req.user.enrolledClasses;
+                classes = await classService.findEnrolled({ id: req.user.id});
                 break;
             }
             default : {
