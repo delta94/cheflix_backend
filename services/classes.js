@@ -27,13 +27,13 @@ const findAll = (query) => {
 };
 
 const createLesson = (data, parrentClassId) => {
-    console.log('lesson', data, parrentClassId)
+    console.log('material', data, parrentClassId)
     
-    return db.Lesson.create({
+    return db.MaterialInClass.create({
         name: data.name,
-        description: data.desc,
-        vid: data.vid,
-        parrentClassId:parrentClassId,
+        des: data.desc,
+        link: data.vid,
+        classId:parrentClassId,
     });
 }
 

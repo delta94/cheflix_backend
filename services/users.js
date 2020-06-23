@@ -26,8 +26,14 @@ const findOne = (query) => {
 }
 
 const create =  async (data) => {
+    // generate hash for password
+    let password = await bcrypt.genHash(data.password);
+    // delete plain password
+    delete data.password;
+
     return db.User.create({
         ...data,
+        password
     });
 }
 

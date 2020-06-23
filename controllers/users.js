@@ -39,6 +39,7 @@ const createToken = async (req, res, next) => {
         if (!user) {
             throw new definedError.IncorrectEmail('Email is incorrect');
         }
+        console.log(password);
         // See if password is correct
         let isCorrectPassword = await userService.comparePassword({ id: user.id, password })
         if (!isCorrectPassword) {
@@ -111,7 +112,8 @@ const updateUser = async (req, res, next) => {
     try {
         let { id } = req.params;
         let { firstName, lastName, address, dateOfBirth, phoneNumber, gender } = req.body;
-
+        console.log('shouldbe: ',  { firstName, lastName, address, dateOfBirth, phoneNumber, gender });
+        console.log( 'recieved: ',req.body);
         // let { firstName, lastName, address, dateOfBirth, phoneNumber,sex} = req.body;
         let user = await userService.findOne({ id });
         // if no user then throw error

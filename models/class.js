@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: 'studentId'
     });
 
-    Class.hasMany(models.Lesson, {
-      foreignKey: 'parrentClassId'
+    Class.hasMany(models.MaterialInClass, {
+      foreignKey: 'classId'
     });
   };
   return Class;
