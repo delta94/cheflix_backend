@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'classId',
       otherKey: 'studentId'
     });
+    Class.hasMany(models.MaterialInClass, {
+      foreignKey: 'classId'
+    });
   };
   return Class;
 };

@@ -1,6 +1,5 @@
 const db = require('../models');
 const { Op } = db;
-const { query } = require('express');
 
 const findAll = (query) => {
     return db.Class.findAll({
@@ -22,7 +21,11 @@ const findAll = (query) => {
                     exclude: ['password']
                 }
             },
-        ]
+            {
+                model: db.MaterialInClass
+            }
+        ],
+        order: [['createdAt', 'DESC']]
     });
 };
 
@@ -62,7 +65,11 @@ const findEnrolled = async ({ id }) => {
                         exclude: ['password']
                     }
                 },
-            ]
+                {
+                    model: db.MaterialInClass
+                }
+            ],
+            order: [['createdAt', 'DESC']]
         }
     });
     return student.enrolledClasses;
@@ -90,7 +97,11 @@ const findByKeyword = async ({ keyword }) => {
                     exclude: ['password']
                 }
             },
-        ]
+            {
+                model: db.MaterialInClass
+            }
+        ],
+        order: [['createdAt', 'DESC']]
     });
 }
 
@@ -112,7 +123,11 @@ const findSuggested = async () => {
                     exclude: ['password']
                 }
             },
-        ]
+            {
+                model: db.MaterialInClass
+            }
+        ],
+        order: [['createdAt', 'DESC']]
     });
 }
 
