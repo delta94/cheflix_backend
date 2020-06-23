@@ -15,6 +15,10 @@ const getClasses = async (req, res, next) => {
                 classes = await classService.findEnrolled({ id: req.user.id});
                 break;
             }
+            case 'suggested': {
+                classes = await classService.findSuggested();
+                break;
+            }
             default : {
                 classes = await classService.findByKeyword({ keyword });
             }

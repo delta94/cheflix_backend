@@ -72,9 +72,47 @@ const findByKeyword = async ({ keyword }) => {
     return db.Class.findAll({
         where: {
             name: {
-                [Op.like]:`%${keyword}%`
+                [Op.like]: `%${keyword}%`
             }
-        }
+        },
+        include: [
+            {
+                model: db.User,
+                as: 'students',
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+            {
+                model: db.User,
+                as: 'teacher',
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+        ]
+    });
+}
+
+const findSuggested = async () => {
+    return db.Class.findAll({
+        limit: 5,
+        include: [
+            {
+                model: db.User,
+                as: 'students',
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+            {
+                model: db.User,
+                as: 'teacher',
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+        ]
     });
 }
 
@@ -83,5 +121,6 @@ module.exports = {
     create,
     enroll,
     findEnrolled,
-    findByKeyword
+    findByKeyword,
+    findSuggested
 }
