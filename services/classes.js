@@ -57,16 +57,14 @@ const findAll = (query) => {
         order: [['createdAt', 'DESC']]
     });
 };
-
-
-const createLesson = (data, parrentClassId) => {
-    console.log('material', data, parrentClassId)
+const createLesson = (data, classId) => {
+    console.log('lesson', data, classId)
     
     return db.MaterialInClass.create({
         name: data.name,
-        des: data.desc,
+        desc: data.desc,
         link: data.vid,
-        classId:parrentClassId,
+        classId:classId,
     });
 }
 
