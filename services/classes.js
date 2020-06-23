@@ -1,4 +1,5 @@
 const db = require('../models');
+const { Op } = db;
 const { query } = require('express');
 
 const findAll = (query) => {
@@ -67,9 +68,20 @@ const findEnrolled = async ({ id }) => {
     return student.enrolledClasses;
 }
 
+const findByKeyword = async ({ keyword }) => {
+    return db.Class.findAll({
+        where: {
+            name: {
+                [Op.like]:`%${keyword}%`
+            }
+        }
+    });
+}
+
 module.exports = {
     findAll,
     create,
     enroll,
-    findEnrolled
+    findEnrolled,
+    findByKeyword
 }
