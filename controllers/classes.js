@@ -4,7 +4,7 @@ const { MissingParameter } = require('../utils/error');
 
 const getClasses = async (req, res, next) => {
     try {
-        var { type } = req.query;
+        var { type, keyword } = req.query;
         var classes;
         switch(type) {
             case 'opened': {
@@ -16,7 +16,7 @@ const getClasses = async (req, res, next) => {
                 break;
             }
             default : {
-                classes = await classService.findAll();
+                classes = await classService.findByKeyword({ keyword });
             }
         }
 
