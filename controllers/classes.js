@@ -61,11 +61,9 @@ const createClass = async (req, res, next) => {
     try {
 
         var { className, desc,lessons, id } = req.body;
-        console.log(req.body)
         var teacherId = id
         var name = className
         var description = desc
-        console.log(name, description, teacherId)
 
         if (!name || !description || !teacherId|| !lessons) {
             throw new definedError.MissingParameter('Some parameter is missing');
@@ -148,7 +146,6 @@ module.exports = {
     getClasses,
     createClass,
     enrollClass,
-    updateClass
     updateClass,
     getSingleClass
 }

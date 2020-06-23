@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const MaterialInClass = sequelize.define('MaterialInClass', {
     classId: DataTypes.INTEGER,
     name: DataTypes.STRING,
+    desc: DataTypes.STRING,
     link: DataTypes.STRING
   }, {});
   MaterialInClass.associate = function(models) {
