@@ -6,7 +6,7 @@ module.exports = {
       'MaterialInClasses', // model to add column to
       'desc', // column to add
       {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       }
     )
   },
