@@ -1,6 +1,34 @@
 const db = require('../models');
 const { Op } = db;
 
+const findOne = (query) => {
+    return db.Class.findOne({
+        where: {
+            ...query
+        },
+        include: [
+            {
+                model: db.User,
+                as: 'students',
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+            {
+                model: db.User,
+                as: 'teacher',
+                attributes: {
+                    exclude: ['password']
+                }
+            },
+            {
+                model: db.MaterialInClass,
+                as: 'materials'
+            }
+        ]
+    });
+};
+
 const findAll = (query) => {
     return db.Class.findAll({
         where: {
@@ -136,6 +164,7 @@ const findSuggested = async () => {
 }
 
 module.exports = {
+    findOne,
     findAll,
     create,
     enroll,

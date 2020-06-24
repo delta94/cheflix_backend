@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     teacherId: {
       type: DataTypes.INTEGER
+    },
+    picture: {
+      type: DataTypes.STRING
     }
   }, {
     timestamps: true,

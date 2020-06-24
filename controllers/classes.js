@@ -56,6 +56,29 @@ const createClass = async (req, res, next) => {
     }
 }
 
+const updateClass = async (req, res, next) => {
+    try {
+        var { id } = req.params;
+        var { name, description, picture } = req.body;
+        let classItem = await classService.findOne({ id });
+        // if no user then throw error
+        if(!classItem) throw new definedError.NotFound('Class not found');
+        // set changes
+        classItem.name = name;
+        classItem.description = description;
+        classItem.picture = picture;
+
+        // save changes
+        await classItem.save();
+        return res.json({
+            status: 'success',
+            message: 'Class updated'
+        });
+    } catch (e) {
+        next(e);
+    }
+}
+
 const enrollClass = async (req, res, next) => {
     try {
         var { id: studentId } = req.user;
@@ -75,5 +98,6 @@ const enrollClass = async (req, res, next) => {
 module.exports = {
     getClasses,
     createClass,
-    enrollClass
+    enrollClass,
+    updateClass
 }

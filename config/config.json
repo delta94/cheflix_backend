@@ -9,7 +9,13 @@
     "jwt": {
       "JWT_SECRET": "8dce21195d46b9763dcdf3164d62a496"
     },
-    "allowedOrigin": "http://localhost:3001"
+    "allowedOrigin": "http://localhost:3001",
+    "aws": {
+      "SECRET_KEY": "",
+      "ACCESS_KEY": "",
+      "BUCKET_NAME": "retozus3bucket",
+      "S3_BASE_URL": "https://retozus3bucket.s3.ap-northeast-1.amazonaws.com"
+  }
   },
   "test": {
     "username": "root",
@@ -21,7 +27,13 @@
     "jwt": {
       "JWT_SECRET": "8dce21195d46b9763dcdf3164d62a496"
     },
-    "allowedOrigin": "http://localhost:3001"
+    "allowedOrigin": "http://localhost:3001",
+    "aws": {
+      "SECRET_KEY": "",
+      "ACCESS_KEY": "",
+      "BUCKET_NAME": "retozus3bucket",
+      "S3_BASE_URL": "https://retozus3bucket.s3.ap-northeast-1.amazonaws.com"
+  }
   },
   "production": {
     "username": "root",
@@ -33,6 +45,12 @@
     "jwt": {
       "JWT_SECRET": "8dce21195d46b9763dcdf3164d62a496"
     },
-    "allowedOrigin": "http://localhost:3001"
+    "allowedOrigin": "http://localhost:3001",
+    "aws": {
+      "SECRET_KEY": "",
+      "ACCESS_KEY": "",
+      "BUCKET_NAME": "retozus3bucket",
+      "S3_BASE_URL": "https://retozus3bucket.s3.ap-northeast-1.amazonaws.com"
+  }
   }
 }
