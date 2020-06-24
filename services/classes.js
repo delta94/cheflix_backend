@@ -22,7 +22,8 @@ const findAll = (query) => {
                 }
             },
             {
-                model: db.MaterialInClass
+                model: db.MaterialInClass,
+                as: 'materials'
             }
         ],
         order: [['createdAt', 'DESC']]
@@ -66,7 +67,8 @@ const findEnrolled = async ({ id }) => {
                     }
                 },
                 {
-                    model: db.MaterialInClass
+                    model: db.MaterialInClass,
+                    as: 'materials'
                 }
             ],
             order: [['createdAt', 'DESC']]
@@ -98,7 +100,8 @@ const findByKeyword = async ({ keyword }) => {
                 }
             },
             {
-                model: db.MaterialInClass
+                model: db.MaterialInClass,
+                as: 'materials'
             }
         ],
         order: [['createdAt', 'DESC']]
@@ -124,7 +127,8 @@ const findSuggested = async () => {
                 }
             },
             {
-                model: db.MaterialInClass
+                model: db.MaterialInClass,
+                as: 'materials'
             }
         ],
         order: [['createdAt', 'DESC']]
