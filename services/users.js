@@ -25,6 +25,28 @@ const findOne = (query) => {
     });
 }
 
+const findAll = (query) =>{
+    console.log(query);
+    return db.User.findAll({
+        raw: true,
+        attributes: {
+            exclude: ['password']
+        },
+        where: {
+            ...query,
+            deletedAt: null
+        },
+        include: {
+            model: db.Class,
+            as: 'enrolledClasses',
+            include: {
+                model: db.User,
+                as: 'students'
+            }
+        }
+    });
+}
+
 const create =  async (data) => {
     return db.User.create({
         ...data,
@@ -34,4 +56,5 @@ const create =  async (data) => {
 module.exports = {
     findOne,
     create,
+    findAll
 }

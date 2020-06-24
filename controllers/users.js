@@ -7,6 +7,7 @@ const users = require('../services/users');
 const { isEmail } = validate;
 
 const getUser = async (req, res, next) => {
+    console.log('called to get 1')
     try {
         let { id } = req.params;
         let user = await userService.findOne({ id });
@@ -23,6 +24,26 @@ const getUser = async (req, res, next) => {
     } catch (e) {
         next(e);
     }
+}
+
+const getUserList = async (req, res, next) =>{
+    console.log('called to get n')
+    try{
+        console.log('query', req.query);
+        let q = req.query.firstName?{firstname:req.query.firstName}:'';
+        let users = await userService.findAll({});
+
+        if (!users) {
+            throw new definedError.NotFound('User not found');
+        }
+        console.log(users)
+        res.header('Access-Control-Expose-Headers', 'X-Total-Count');
+        res.set("x-total-count", users.length);
+        return res.json(users)
+    }catch(e){
+        next(e);
+    }
+
 }
 
 const createToken = async (req, res, next) => {
@@ -64,6 +85,7 @@ const createToken = async (req, res, next) => {
 }
 
 const createUser = async (req, res, next) => {
+    console.log('called to create')
     try {
 
         const {username, email, password, firstName, lastName, address, dateOfBirth } = req.body;
@@ -109,6 +131,7 @@ const createUser = async (req, res, next) => {
 }
 
 const updateUser = async (req, res, next) => {
+    console.log('called to update')
     try {
         let { id } = req.params;
         let { firstName, lastName, address, dateOfBirth, phoneNumber, gender, picture } = req.body;
@@ -141,5 +164,6 @@ module.exports = {
     createToken,
     getUser,
     createUser,
-    updateUser
+    updateUser,
+    getUserList
 }

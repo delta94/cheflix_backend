@@ -4,6 +4,8 @@ const {
     checkAdminAuthorization
 } = require('./authorization');
 
+const {addHeader} = require('./addHeader');
+
 const {
     upload
 } = require('./multer');
@@ -20,4 +22,5 @@ module.exports = {
     upload,
     preUpdateUser,
     preUpdateClass
+    addHeader
 }

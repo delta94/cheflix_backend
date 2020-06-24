@@ -18,6 +18,6 @@ userRouter.put('/:id', checkAuthorization, upload.single('picture'), preUpdateUs
 userRouter.post('/tokens', userController.createToken);
 
 // for admin
-userRouter.get('/', userController.getUserList);
+userRouter.get('', userController.getUserList);
 
 module.exports = userRouter;
