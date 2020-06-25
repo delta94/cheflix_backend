@@ -6,11 +6,18 @@ const {
 
 const {
     upload
-} = require('multer');
+} = require('./multer');
+
+const {
+    preUpdateUser,
+    preUpdateClass
+} = require('./form');
 
 module.exports = {
     exceptionHandler,
     checkAuthorization,
     checkAdminAuthorization,
-    upload
+    upload,
+    preUpdateUser,
+    preUpdateClass
 }

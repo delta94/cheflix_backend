@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     gender: {
       type: DataTypes.BOOLEAN
+    },
+    picture: {
+      type: DataTypes.STRING
     }
   }, {
     timestamps: true,

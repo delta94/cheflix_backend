@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     teacherId: {
       type: DataTypes.INTEGER
+    },
+    picture: {
+      type: DataTypes.STRING
     }
   }, {
     timestamps: true,
@@ -28,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       as: 'students',
       foreignKey: 'classId',
       otherKey: 'studentId'
+    });
+    Class.hasMany(models.MaterialInClass, {
+      foreignKey: 'classId',
+      as: 'materials'
     });
   };
   return Class;
