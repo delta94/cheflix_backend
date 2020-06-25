@@ -2,22 +2,13 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return Promise.all([queryInterface.addColumn(
-      'Users', // model to add column to
-      'username', // column to add
-      {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      }
-    ),queryInterface.addColumn(
+    return queryInterface.addColumn(
       'Users', // model to add column to
       'gender', // column to add
       {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.BOOLEAN
       }
     )
-    ])
   },
 
   down: (queryInterface, Sequelize) => {

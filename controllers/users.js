@@ -29,14 +29,12 @@ const getUser = async (req, res, next) => {
 const getUserList = async (req, res, next) =>{
     console.log('called to get n')
     try{
-        console.log('query', req.query);
-        let q = req.query.firstName?{firstname:req.query.firstName}:'';
+        // let q = req.query.firstName?{firstname:req.query.firstName}:'';
         let users = await userService.findAll({});
 
         if (!users) {
             throw new definedError.NotFound('User not found');
         }
-        console.log(users)
         res.header('Access-Control-Expose-Headers', 'X-Total-Count');
         res.set("x-total-count", users.length);
         return res.json(users)
@@ -89,6 +87,8 @@ const createUser = async (req, res, next) => {
     try {
 
         const {username, email, password, firstName, lastName, address, dateOfBirth } = req.body;
+
+        console.log()
 
         // Check missing fields
         if (!username || !email || !password) {

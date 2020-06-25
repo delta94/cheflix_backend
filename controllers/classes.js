@@ -76,16 +76,20 @@ const getSingleClass = async (req, res, next) => {
 const createClass = async (req, res, next) => {
     try {
 
-        var { className, desc,lessons, id } = req.body;
-        var teacherId = id
-        var name = className
-        var description = desc
+        var { name, description, teacherId } = req.body;
+        var teacherId = teacherId
+        var name = name
+        var description = description
 
-        if (!name || !description || !teacherId|| !lessons) {
+        console.log(req.body);
+
+        // if (!name || !description || !teacherId|| !lessons) {
+        if (!name || !description || !teacherId) {
             throw new definedError.MissingParameter('Some parameter is missing');
         }
 
-        let newClass = await classService.create({ name, description, lessons, teacherId });
+        // let newClass = await classService.create({ name, description, lessons, teacherId });
+        let newClass = await classService.create({ name, description, teacherId });
 
         return res.json({
             status: 'success',
@@ -98,28 +102,6 @@ const createClass = async (req, res, next) => {
     }
 }
 
-const updateClass = async (req, res, next) => {
-    try {
-        var { id } = req.params;
-        var { name, description, picture } = req.body;
-        let classItem = await classService.findOne({ id });
-        // if no user then throw error
-        if(!classItem) throw new definedError.NotFound('Class not found');
-        // set changes
-        classItem.name = name;
-        classItem.description = description;
-        classItem.picture = picture;
-
-        // save changes
-        await classItem.save();
-        return res.json({
-            status: 'success',
-            message: 'Class updated'
-        });
-    } catch (e) {
-        next(e);
-    }
-}
 
 const enrollClass = async (req, res, next) => {
     try {
@@ -139,16 +121,18 @@ const enrollClass = async (req, res, next) => {
             
 const updateClass = async (req, res, next) => {
     try {
-        let { id } = req.params;
-        const {className, desc, lessons} = req.body;
-        console.log({className, desc, lessons}) 
-
-        let classes = await classService.findOne({ id });
+        var { id } = req.params;
+        var { name, description, picture } = req.body;
+        let classItem = await classService.findOne({ id });
         // if no user then throw error
+        if(!classItem) throw new definedError.NotFound('Class not found');
         // set changes
+        classItem.name = name;
+        classItem.description = description;
+        classItem.picture = picture;
 
         // save changes
-        await classes.save();
+        await classItem.save();
         return res.json({
             status: 'success',
             message: 'Class updated'

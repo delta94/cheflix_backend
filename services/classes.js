@@ -80,14 +80,17 @@ const findAll = (query) => {
 
 
 const create = (data) => {
-
+    console.log(data)
     var newClass = db.Class.create({
         ...data
     }).then(function(classes){
         console.log('created data id',classes.dataValues.id)
-        data.lessons.forEach((les)=>{
-            createMaterial(les, classes.dataValues.id)
-        })
+        if (data.lessons != null){
+            console.log(data.lessons)
+            data.lessons.forEach((les)=>{
+                createMaterial(les, classes.dataValues.id);
+            })
+        }
     });
 
     return newClass
