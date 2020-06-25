@@ -4,7 +4,6 @@ const {
     checkAdminAuthorization
 } = require('./authorization');
 
-const {addHeader} = require('./addHeader');
 
 const {
     upload
@@ -22,5 +21,4 @@ module.exports = {
     upload,
     preUpdateUser,
     preUpdateClass
-    addHeader
 }
