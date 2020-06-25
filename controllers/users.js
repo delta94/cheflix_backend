@@ -89,7 +89,6 @@ const createUser = async (req, res, next) => {
     try {
 
         const {username, email, password, firstName, lastName, address, dateOfBirth } = req.body;
-        console.log(username);
 
         // Check missing fields
         if (!username || !email || !password) {
@@ -111,7 +110,7 @@ const createUser = async (req, res, next) => {
             throw new definedError.UsedUsername('Username is used');
         }
         // Create new user
-
+        console.log('here')
         let newUser = await userService.create({username, email, password, firstName, lastName, address, dateOfBirth });
 
         // Respond with newly created user
@@ -160,10 +159,30 @@ const updateUser = async (req, res, next) => {
     }
 }
 
+const deleteUser = async (req, res, next) =>{
+        console.log('called to update')
+    try {
+        let { id } = req.params;
+        // let { firstName, lastName, address, dateOfBirth, phoneNumber,sex} = req.body;
+        let user = await userService.destroy({ id });
+        // if no user then throw error
+        if(!user) throw new definedError.NotFound('User not found');
+        // save changes
+        // await user.save();
+        return res.json({
+            status: 'success',
+            message: 'User delete'
+        });
+    } catch (e) {
+        next(e);
+    }
+}
+
 module.exports = {
     createToken,
     getUser,
     createUser,
     updateUser,
-    getUserList
+    getUserList,
+    deleteUser
 }

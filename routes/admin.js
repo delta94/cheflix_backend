@@ -8,15 +8,26 @@ const { userController, classController } = require('../controllers');
 // middlewares
 const { addHeader } = require('../middlewares');
 
-// for admin
+// for admin user
 adminRouter.get('/users', userController.getUserList);
 
 adminRouter.get('/users/:id', userController.getUser);
 
-adminRouter.post('/users/:id', userController.createUser);
+adminRouter.post('/users', userController.createUser);
 
 adminRouter.put('/users/:id', userController.updateUser);
 
-adminRouter.delete('/users/:id', userController.getUserList);
+adminRouter.delete('/users/:id', userController.deleteUser);
+
+// for admin class
+adminRouter.get('/classes', classController.getAllClass);
+
+adminRouter.get('/classes/:id', classController.getSingleClass);
+
+adminRouter.post('/classes', classController.createClass);
+
+adminRouter.put('/classes/:id', classController.updateClass);
+
+adminRouter.delete('/classes/:id', classController.deleteClass);
 
 module.exports = adminRouter;

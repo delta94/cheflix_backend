@@ -17,7 +17,4 @@ userRouter.put('/:id', checkAuthorization, upload.single('picture'), preUpdateUs
 // get jwt token
 userRouter.post('/tokens', userController.createToken);
 
-// for admin
-userRouter.get('', userController.getUserList);
-
 module.exports = userRouter;

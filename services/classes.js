@@ -29,6 +29,26 @@ const findOne = (query) => {
     });
 };
 
+const createMaterial = (data, classId) => {
+    console.log('lesson', data, classId)
+    
+    return db.MaterialInClass.create({
+        name: data.name,
+        desc: data.desc,
+        link: data.vid,
+        classId:classId,
+    });
+}
+
+const destroyMaterial = (classId)=>{
+    return db.MaterialInClass.destroy({
+        where:{
+            classId: classId
+        },
+        truncate:true
+    })
+}
+
 const findAll = (query) => {
     return db.Class.findAll({
         where: {
@@ -57,27 +77,16 @@ const findAll = (query) => {
         order: [['createdAt', 'DESC']]
     });
 };
-const createLesson = (data, classId) => {
-    console.log('lesson', data, classId)
-    
-    return db.MaterialInClass.create({
-        name: data.name,
-        desc: data.desc,
-        link: data.vid,
-        classId:classId,
-    });
-}
+
 
 const create = (data) => {
-    console.log('data', data)
-
 
     var newClass = db.Class.create({
         ...data
     }).then(function(classes){
         console.log('created data id',classes.dataValues.id)
         data.lessons.forEach((les)=>{
-            createLesson(les, classes.dataValues.id)
+            createMaterial(les, classes.dataValues.id)
         })
     });
 
@@ -183,6 +192,17 @@ const findSuggested = async () => {
     });
 }
 
+const destroy=async ({id})=>{
+    console.log(id)
+
+    destroyMaterial(id);
+
+    return db.Class.destroy({
+        where:{id:id},
+        truncate: true
+    })
+}
+
 module.exports = {
     findOne,
     findAll,
@@ -190,5 +210,6 @@ module.exports = {
     enroll,
     findEnrolled,
     findByKeyword,
-    findSuggested
+    findSuggested,
+    destroy
 }

@@ -24,12 +24,28 @@ const getClasses = async (req, res, next) => {
                 classes = await classService.findByKeyword({ keyword });
             }
         }
+        res.header('Access-Control-Expose-Headers', 'X-Total-Count');
+        res.set("x-total-count", classes.length);
         return res.json({
             status: 'success',
             data: {
                 classes
             }
         });
+
+    } catch (e) {
+        next(e);
+    }
+}
+
+const getAllClass = async (req, res, next) => {
+    try {
+        var { type, keyword } = req.query;
+        var classes = await classService.findAll();
+        res.header('Access-Control-Expose-Headers', 'X-Total-Count');
+        res.set("x-total-count", classes.length);
+        console.log(classes)
+        return res.json(classes);
 
     } catch (e) {
         next(e);
@@ -142,10 +158,27 @@ const updateClass = async (req, res, next) => {
     }
 }
 
+const deleteClass = async (req, res, next) =>{
+    try{
+        let {id} = req.params;
+
+        let classes = await classService.destroy({id});
+
+        return res.json({
+            status: 'success',
+            message: 'Class deleted'
+        });
+    } catch (e) {
+        next(e);
+    }
+}
+
 module.exports = {
     getClasses,
     createClass,
     enrollClass,
     updateClass,
-    getSingleClass
+    getSingleClass,
+    deleteClass,
+    getAllClass
 }
