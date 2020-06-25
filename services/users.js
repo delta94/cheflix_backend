@@ -5,7 +5,7 @@ const {
 } = require('../utils');
 
 const findOne = (query) => {
-    // console.log(query);
+    console.log(query);
     return db.User.findOne({
         attributes: {
             exclude: ['password']

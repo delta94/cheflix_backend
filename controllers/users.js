@@ -82,6 +82,39 @@ const createToken = async (req, res, next) => {
     }
 }
 
+const createAdminToken = async (req, res, next) => {
+    try {
+        const { username, password } = req.body;
+        // See if email is correct
+        let user = await userService.findOne({ username });
+
+        if (!user) {
+            throw new definedError.IncorrectEmail('Username is incorrect');
+        }
+        console.log(password);
+        // See if password is correct
+        let isCorrectPassword = await userService.comparePassword({ id: user.id, password })
+        if (!isCorrectPassword) {
+            throw new definedError.IncorrectPassword('Password is not correct');
+        }
+        // Generate token
+        let token = jwt.signToken({
+            id: user.id,
+            email: user.email
+        });
+        // Respond with token
+        return res.status(200).json({
+            status: 'success',
+            data: {
+                token,
+                id: user.id
+            }
+        });
+    } catch (e) {
+        next(e);
+    }
+}
+
 const createUser = async (req, res, next) => {
     console.log('called to create')
     try {
@@ -133,7 +166,9 @@ const updateUser = async (req, res, next) => {
     console.log('called to update')
     try {
         let { id } = req.params;
-        let { firstName, lastName, address, dateOfBirth, phoneNumber, gender, picture } = req.body;
+        let { firstName, username, address, dateOfBirth, phoneNumber, gender, picture } = req.body;
+        console.log({ firstName, username, address, dateOfBirth, phoneNumber, gender, picture });
+
 
         // let { firstName, lastName, address, dateOfBirth, phoneNumber,sex} = req.body;
         let user = await userService.findOne({ id });
@@ -141,7 +176,7 @@ const updateUser = async (req, res, next) => {
         if(!user) throw new definedError.NotFound('User not found');
         // set changes
         user.firstName = firstName;
-        user.lastName = lastName;
+        user.username = username;
         user.address = address;
         user.dateOfBirth = dateOfBirth;
         user.phoneNumber = phoneNumber;
@@ -184,5 +219,6 @@ module.exports = {
     createUser,
     updateUser,
     getUserList,
-    deleteUser
+    deleteUser,
+    createAdminToken
 }

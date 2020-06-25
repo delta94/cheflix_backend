@@ -8,6 +8,9 @@ const { userController, classController } = require('../controllers');
 // middlewares
 const { addHeader } = require('../middlewares');
 
+
+adminRouter.post('/tokens', userController.createAdminToken);
+
 // for admin user
 adminRouter.get('/users', userController.getUserList);
 
